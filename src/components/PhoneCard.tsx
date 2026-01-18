@@ -9,6 +9,8 @@ import {
   ExternalLink,
   X,
   Layers,
+  ShoppingBag,
+  Check,
 } from "lucide-react";
 import {
   Box,
@@ -33,6 +35,8 @@ const MotionCard = motion(Card);
 export const PhoneCard = ({ phone }: PhoneCardProps) => {
   const theme = useTheme();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isBuying, setIsBuying] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
 
   const handleOpenGSMArena = () => {
     const query = `${phone.brand} ${phone.model} gsmarena`;
@@ -40,6 +44,16 @@ export const PhoneCard = ({ phone }: PhoneCardProps) => {
       `https://www.google.com/search?q=${encodeURIComponent(query)}&btnI=1`,
       "_blank",
     );
+  };
+
+  const handleBuy = () => {
+    setIsBuying(true);
+    // Simulate API call
+    setTimeout(() => {
+      setIsBuying(false);
+      setIsAdded(true);
+      setTimeout(() => setIsAdded(false), 3000);
+    }, 1500);
   };
 
   return (
@@ -175,31 +189,61 @@ export const PhoneCard = ({ phone }: PhoneCardProps) => {
         <Box
           sx={{
             pt: 2,
+            display: "flex",
+            gap: 1.5,
             borderTop: "1px solid rgba(255, 255, 255, 0.05)",
             position: "relative",
             zIndex: 1,
           }}
         >
           <Button
+            size="small"
+            variant="outlined"
+            onClick={() => setIsModalOpen(true)}
+            sx={{
+              borderColor: "rgba(255,255,255,0.1)",
+              color: "text.secondary",
+              "&:hover": {
+                borderColor: "white",
+                color: "white",
+                bgcolor: "rgba(255,255,255,0.05)",
+              },
+              px: 2,
+              borderRadius: "12px",
+              fontSize: "0.7rem",
+              fontWeight: 700,
+              textTransform: "uppercase",
+            }}
+          >
+            Specs
+          </Button>
+          <Button
             fullWidth
             variant="contained"
-            onClick={() => setIsModalOpen(true)}
-            endIcon={<ExternalLink size={14} />}
+            onClick={handleBuy}
+            disabled={isBuying || isAdded}
+            startIcon={
+              isAdded ? <Check size={14} /> : <ShoppingBag size={14} />
+            }
             sx={{
-              bgcolor: alpha(theme.palette.common.white, 0.05),
-              color: "text.primary",
+              bgcolor: isAdded ? "#10b981" : "white",
+              color: isAdded ? "white" : "black",
               "&:hover": {
-                bgcolor: theme.palette.common.white,
-                color: theme.palette.common.black,
+                bgcolor: isAdded ? "#059669" : "rgba(255,255,255,0.9)",
               },
               py: 1.5,
               borderRadius: "12px",
               fontSize: "0.75rem",
-              fontWeight: 800,
-              letterSpacing: "0.1em",
+              fontWeight: 900,
+              letterSpacing: "0.05em",
+              transition: "0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+              "&.Mui-disabled": {
+                bgcolor: isAdded ? "#10b981" : "rgba(255,255,255,0.1)",
+                color: isAdded ? "white" : "rgba(255,255,255,0.3)",
+              },
             }}
           >
-            Full Specs
+            {isBuying ? "Processing..." : isAdded ? "Added!" : "Buy Now"}
           </Button>
         </Box>
       </MotionCard>

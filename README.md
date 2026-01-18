@@ -1,34 +1,36 @@
 # MobiWise AI - Shopping Chat Agent 📱
 
-MobiWise is a premium AI-powered shopping assistant designed to help customers discover, compare, and understand mobile phones through natural language conversations.
+MobiWise is a premium AI-powered shopping assistant designed to help customers discover, compare, and purchase mobile phones through natural language conversations.
 
 ## 🚀 Features
 
 - **Natural Language Discovery**: Ask for phones based on budget, brand, or specific features (e.g., "Best camera phone under ₹30k").
-- **Smart Recommendations**: Get tailored suggestions with clear rationales for why a phone fits your needs.
-- **Deep Comparisons**: Compare specs, pros, and cons of multiple models side-by-side.
+- **Smart Recommendations**: Get tailored suggestions with clear rationales and evidence-based justifications.
+- **Deep Comparisons**: Compare specs, pros, and cons of multiple models side-by-side with comparison verdicts.
 - **Safety First**: Robust protection against adversarial prompts, prompt injection, and irrelevant queries.
-- **Premium UI**: Modern, responsive glassmorphism interface with smooth animations.
+- **Premium UI**: Modern, responsive glassmorphism interface with smooth animations and specialized mobile breadcrumb navigation.
+- **Shopping Integration**: Built-in purchase simulation with "Buy Now" functionality.
 
 ## 🛠️ Tech Stack
 
 - **Frontend**: React 19, Vite, TypeScript
 - **Styling**: Vanilla CSS (Modern CSS properties), Material UI (Icons), Framer Motion (Animations)
-- **AI Engine**: Google Gemini 1.5 Flash (via Google AI Studio)
+- **AI Engine**: Google Gemini 1.5 Pro/Flash (via Google AI Studio)
 - **Backend**: Vercel Serverless Functions
 - **Icons**: Lucide React
 
 ## 🏗️ Architecture
 
-- **Context-Aware Agent**: Uses a specialized system prompt that integrates a local JSON "mock database" as the source of truth to prevent hallucinations.
-- **Structured Output**: The backend enforces JSON responses from Gemini, allowing the frontend to render rich product cards and specialized views dynamically.
-- **Chat History**: Maintains conversation state to allow follow-up questions and deeper explorations.
+- **Dynamic AI Knowledge**: Leverages Gemini's extensive training data to provide real-time information on the latest mobile devices without relying on static local files.
+- **Structured Output Engine**: Enforces strict JSON responses from the AI, enabling the frontend to render rich product cards, comparison grids, and technical spec sheets.
+- **Breadcrumb Navigation**: Personalized mobile experience with collapsible model switching and breadcrumb-style headers.
+- **Context Management**: Maintains conversation history for sophisticated multi-turn dialogue and follow-up analysis.
 
 ## 🛡️ Safety & Security
 
 - **System Prompt Hardening**: Instructions explicitly forbid revealing internal logic or sensitive keys.
-- **Negative Constraints**: The agent is programmed to refuse irrelevant (non-mobile related), toxic, or biased requests.
-- **Input Validation**: Basic pattern matching combined with AI-based intent analysis.
+- **Topic Enforcement**: The agent is programmed to stay within the mobile phone domain, politely redirecting irrelevant queries.
+- **Intent Analysis**: Real-time analysis of user intent to provide accurate "Comparison" vs "Recommendation" layouts.
 
 ## 📦 Setup Instructions
 
@@ -52,9 +54,9 @@ MobiWise is a premium AI-powered shopping assistant designed to help customers d
    GEMINI_API_KEY=your_gemini_api_key_here
    ```
 
-### 🛠️ Local Development with API
+### 🛠️ Local Development
 
-To run both the React frontend and the Vercel Serverless Functions locally:
+To run the application with full backend support locally:
 
 1. **Install Vercel CLI**:
 
@@ -62,13 +64,13 @@ To run both the React frontend and the Vercel Serverless Functions locally:
    npm i -g vercel
    ```
 
-2. **Run carefully**:
+2. **Run Dev Server**:
 
    ```bash
    vercel dev
    ```
 
-   This will start the local server at `http://localhost:3000` (by default) and proxy `/api/*` requests to your local serverless functions.
+   This starts the local server at `http://localhost:3000` (by default) and proxies `/api/*` requests to your local serverless functions.
 
 3. **Build and Preview**:
    ```bash
@@ -76,12 +78,12 @@ To run both the React frontend and the Vercel Serverless Functions locally:
    npm run preview
    ```
 
-## 📝 Known Limitations
+## 📝 Usage Tips
 
-- **Dataset Size**: The current implementation uses a mock database (`phones.json`). In a production scenario, this would be replaced with a live API/Database.
-- **Offline Mode**: Requires an active internet connection to communicate with the Gemini API.
-- **Real-time Pricing**: Prices are static in the mock data and might not reflect market trends.
+- Use conversational queries: _"What are the trade-offs between a Pixel 8 and an S24?"_
+- Be specific about budgets: _"Find me the best gaming phone for under 50,000 INR."_
+- Ask for comparisons: _"Compare the camera systems of the last 3 iPhone Pro models."_
 
 ---
 
-Built with ❤️ for the AI/ML Engineer Assignment.
+Built with ❤️ by Gokhlesh.

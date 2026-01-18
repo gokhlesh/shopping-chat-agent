@@ -10,9 +10,16 @@ interface ChatMessageProps {
   role: "user" | "model";
   text: string;
   phones?: Phone[];
+  type?: string;
+  comparison_summary?: string;
 }
 
-export const ChatMessage = ({ role, text, phones }: ChatMessageProps) => {
+export const ChatMessage = ({
+  role,
+  text,
+  phones,
+  comparison_summary,
+}: ChatMessageProps) => {
   const theme = useTheme();
   const isBot = role === "model";
 
@@ -106,6 +113,8 @@ export const ChatMessage = ({ role, text, phones }: ChatMessageProps) => {
                   lineHeight: 1.8,
                   "& p": { mb: 2 },
                   "& strong": { color: "white", fontWeight: 700 },
+                  "& ul": { mb: 2 },
+                  "& li": { mb: 1 },
                 },
               }}
             >
@@ -116,13 +125,50 @@ export const ChatMessage = ({ role, text, phones }: ChatMessageProps) => {
               </Box>
             </Box>
 
+            {comparison_summary && (
+              <Box
+                sx={{
+                  mt: 3,
+                  p: 2.5,
+                  borderRadius: "16px",
+                  bgcolor: alpha(theme.palette.primary.main, 0.05),
+                  border: `1px solid ${alpha(theme.palette.primary.main, 0.1)}`,
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: "11px",
+                    fontWeight: 900,
+                    color: theme.palette.primary.main,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.1em",
+                    mb: 1.5,
+                  }}
+                >
+                  Comparison Verdict
+                </Typography>
+                <Box className="prose" sx={{ "& p": { mb: 0 } }}>
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {comparison_summary}
+                  </ReactMarkdown>
+                </Box>
+              </Box>
+            )}
+
             {phones && phones.length > 0 && (
               <Box
                 sx={{
                   display: "grid",
                   gridTemplateColumns: {
                     xs: "1fr",
-                    sm: "repeat(auto-fill, minmax(300px, 1fr))",
+                    sm:
+                      phones.length === 1
+                        ? "1fr"
+                        : "repeat(auto-fill, minmax(280px, 1fr))",
+                    md:
+                      phones.length === 1
+                        ? "max-content"
+                        : "repeat(auto-fill, minmax(320px, 1fr))",
                   },
                   gap: 3,
                   mt: 4,
