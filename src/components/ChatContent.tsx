@@ -15,7 +15,7 @@ interface Message {
 interface ChatContentProps {
   messages: Message[];
   isLoading: boolean;
-  scrollRef: React.RefObject<HTMLDivElement>;
+  scrollRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export const ChatContent = ({
