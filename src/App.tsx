@@ -5,7 +5,6 @@ import {
   Sparkles,
   Plus,
   Menu,
-  ChevronDown,
   Trash2,
 } from "lucide-react";
 
